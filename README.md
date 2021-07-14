@@ -35,6 +35,9 @@ Otherwise you can use docker
 docker-compose up --build
 ```
 
+Run Postgres DB in container
+docker run --name postgres-db -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres
+
 ## Usage 
 
 You can log in to the application using **trejgun@gmail.com/My5up3r5tr0ngP@55w0rd** by executing this CURL request

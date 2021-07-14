@@ -51,9 +51,6 @@ export class UserService {
   }
 
   private createPasswordHash(password: string, salt: string): string {
-    return createHash("sha256")
-      .update(password)
-      .update(salt)
-      .digest("hex");
+    return createHash("sha256").update(password).update(salt).digest("hex");
   }
 }

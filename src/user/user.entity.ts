@@ -10,7 +10,7 @@ export class UserEntity extends BaseEntity implements IUser {
   public email: string;
 
   @Column({type: "varchar", select: false})
-  public password: string;
+  public password?: string;
 
   @Column({
     type: "enum",
