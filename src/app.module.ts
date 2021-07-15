@@ -1,10 +1,11 @@
 import {Module} from "@nestjs/common";
-import {TypeOrmModule} from "@nestjs/typeorm";
+// import {TypeOrmModule} from "@nestjs/typeorm";
+import {MikroOrmModule} from "@mikro-orm/nestjs";
 import {APP_GUARD, APP_PIPE} from "@nestjs/core";
 
 import {JwtGuard, RolesGuard} from "./common/guards";
 import {CustomValidationPipe} from "./common/pipes";
-import {TypeOrmConfigService} from "./typeorm.options";
+// import {TypeOrmConfigService} from "./typeorm.options";
 
 import {AuthModule} from "./auth/auth.module";
 import {UserModule} from "./user/user.module";
@@ -24,12 +25,6 @@ import {UserModule} from "./user/user.module";
       useClass: RolesGuard,
     },
   ],
-  imports: [
-    TypeOrmModule.forRootAsync({
-      useClass: TypeOrmConfigService,
-    }),
-    AuthModule,
-    UserModule,
-  ],
+  imports: [MikroOrmModule.forRoot(), AuthModule, UserModule],
 })
 export class ApplicationModule {}
