@@ -13,6 +13,6 @@ export class UserEntity {
   @Property({columnType: "varchar", hidden: true})
   password?: string;
 
-  @Enum({default: [UserRole.User]})
-  roles: [UserRole.User];
+  @Enum({columnType: "varchar", default: [UserRole.User]})
+  roles: [UserRole];
 }

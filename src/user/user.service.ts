@@ -41,9 +41,9 @@ export class UserService {
       password: this.createPasswordHash(data.password, data.email),
     });
 
-    await this.userEntityRepository.flush();
+    await this.userEntityRepository.persist(user).flush();
 
-    delete user.password;
+    // delete user.password;
 
     return user;
   }
