@@ -11,7 +11,7 @@ export class UserEntity {
   email: string;
 
   @Property({columnType: "varchar", hidden: true})
-  password: string;
+  password?: string;
 
   @Enum({default: [UserRole.User]})
   roles: [UserRole.User];

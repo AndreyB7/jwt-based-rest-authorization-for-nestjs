@@ -1,0 +1,65 @@
+{
+  "data": {
+    "propertyOrder": {},
+    "properties": {
+      "id": {"name": "id", "reference": "scalar", "primary": true, "type": "number"},
+      "email": {
+        "name": "email",
+        "reference": "scalar",
+        "getter": false,
+        "setter": false,
+        "type": "string",
+        "columnTypes": ["varchar"]
+      },
+      "password": {
+        "name": "password",
+        "reference": "scalar",
+        "hidden": true,
+        "getter": false,
+        "setter": false,
+        "type": "string",
+        "columnTypes": ["varchar"]
+      },
+      "roles": {"name": "roles", "reference": "scalar", "enum": true, "default": ["user"], "type": "[UserRole.User]"}
+    },
+    "props": [
+      {"name": "id", "reference": "scalar", "primary": true, "type": "number"},
+      {
+        "name": "email",
+        "reference": "scalar",
+        "getter": false,
+        "setter": false,
+        "type": "string",
+        "columnTypes": ["varchar"]
+      },
+      {
+        "name": "password",
+        "reference": "scalar",
+        "hidden": true,
+        "getter": false,
+        "setter": false,
+        "type": "string",
+        "columnTypes": ["varchar"]
+      },
+      {"name": "roles", "reference": "scalar", "enum": true, "default": ["user"], "type": "[UserRole.User]"}
+    ],
+    "primaryKeys": ["id"],
+    "filters": {},
+    "hooks": {},
+    "indexes": [],
+    "uniques": [],
+    "className": "UserEntity",
+    "path": "./src/user/user.entity.ts",
+    "name": "UserEntity",
+    "abstract": false,
+    "constructorParams": [],
+    "toJsonParams": [],
+    "useCache": true,
+    "compositePK": false,
+    "relations": [],
+    "collection": "user_entity"
+  },
+  "origin": "./src/user/user.entity.ts",
+  "hash": "fa788589cd37150462154da6dc64ffb2",
+  "version": "4.5.7"
+}

@@ -1,8 +1,8 @@
 import {createHash} from "crypto";
-import {Repository, FindConditions} from "typeorm";
-
+import {EntityRepository} from "@mikro-orm/postgresql";
 import {Injectable, ConflictException} from "@nestjs/common";
-import {InjectRepository} from "@nestjs/typeorm";
+import {InjectRepository} from "@mikro-orm/nestjs";
+import {FilterQuery} from "@mikro-orm/core";
 
 import {UserEntity} from "./user.entity";
 import {IUserCreateFields} from "./interfaces";
@@ -11,23 +11,21 @@ import {IUserCreateFields} from "./interfaces";
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
-    private readonly userEntityRepository: Repository<UserEntity>,
+    private readonly userEntityRepository: EntityRepository<UserEntity>,
   ) {}
 
-  public findOne(where: FindConditions<UserEntity>): Promise<UserEntity | undefined> {
-    return this.userEntityRepository.findOne({where});
+  public findOne(where: FilterQuery<UserEntity>): Promise<UserEntity | null> {
+    return this.userEntityRepository.findOne(where);
   }
 
-  public findAndCount(): Promise<[UserEntity[], number]> {
-    return this.userEntityRepository.findAndCount();
+  public findAndCount(where: FilterQuery<UserEntity>): Promise<[UserEntity[], number]> {
+    return this.userEntityRepository.findAndCount(where);
   }
 
-  public async getByCredentials(email: string, password: string): Promise<UserEntity | undefined> {
+  public async getByCredentials(email: string, password: string): Promise<UserEntity | null> {
     return this.userEntityRepository.findOne({
-      where: {
-        email,
-        password: this.createPasswordHash(password, email),
-      },
+      email,
+      password: this.createPasswordHash(password, email),
     });
   }
 
@@ -38,12 +36,12 @@ export class UserService {
       throw new ConflictException();
     }
 
-    user = await this.userEntityRepository
-      .create({
-        ...data,
-        password: this.createPasswordHash(data.password, data.email),
-      })
-      .save();
+    user = this.userEntityRepository.create({
+      ...data,
+      password: this.createPasswordHash(data.password, data.email),
+    });
+
+    await this.userEntityRepository.flush();
 
     delete user.password;
 

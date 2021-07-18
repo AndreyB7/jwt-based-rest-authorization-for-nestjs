@@ -1,7 +1,8 @@
 import {Injectable, UnauthorizedException} from "@nestjs/common";
 import {JwtService} from "@nestjs/jwt";
-import {InjectRepository} from "@nestjs/typeorm";
-import {Repository, FindConditions, DeleteResult} from "typeorm";
+import {InjectRepository} from "@mikro-orm/nestjs";
+import {EntityRepository} from "@mikro-orm/postgresql";
+
 import {v4} from "uuid";
 
 import {UserService} from "../user/user.service";
@@ -9,12 +10,13 @@ import {UserEntity} from "../user/user.entity";
 import {IAuth, ILoginFields} from "./interfaces";
 import {AuthEntity} from "./auth.entity";
 import {accessTokenExpiresIn, refreshTokenExpiresIn} from "./auth.constants";
+import {FilterQuery} from "@mikro-orm/core";
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(AuthEntity)
-    private readonly authEntityRepository: Repository<AuthEntity>,
+    private readonly authEntityRepository: EntityRepository<AuthEntity>,
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
@@ -29,12 +31,12 @@ export class AuthService {
     return this.loginUser(user);
   }
 
-  public async delete(where: FindConditions<AuthEntity>): Promise<DeleteResult> {
-    return this.authEntityRepository.delete(where);
+  public async delete(where: FilterQuery<AuthEntity>): Promise<number> {
+    return this.authEntityRepository.nativeDelete(where);
   }
 
-  public async refresh(where: FindConditions<AuthEntity>): Promise<IAuth> {
-    const authEntity = await this.authEntityRepository.findOne({where, relations: ["user"]});
+  public async refresh(where: FilterQuery<AuthEntity>): Promise<IAuth> {
+    const authEntity = await this.authEntityRepository.findOne(where, ["user"]);
 
     if (!authEntity || authEntity.refreshTokenExpiresAt < new Date().getTime()) {
       throw new UnauthorizedException();
@@ -47,13 +49,12 @@ export class AuthService {
     const refreshToken = v4();
     const date = new Date();
 
-    await this.authEntityRepository
-      .create({
-        user,
-        refreshToken,
-        refreshTokenExpiresAt: date.getTime() + refreshTokenExpiresIn,
-      })
-      .save();
+    this.authEntityRepository.create({
+      user,
+      refreshToken,
+      refreshTokenExpiresAt: date.getTime() + refreshTokenExpiresIn,
+    });
+    await this.authEntityRepository.flush();
 
     return {
       accessToken: this.jwtService.sign({email: user.email}, {expiresIn: accessTokenExpiresIn / 1000}),
