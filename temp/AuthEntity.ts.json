@@ -19,14 +19,6 @@
         "type": "number",
         "columnTypes": ["bigint"]
       },
-      "accessToken": {"name": "accessToken", "reference": "scalar", "getter": false, "setter": false, "type": "string"},
-      "accessTokenExpiresAt": {
-        "name": "accessTokenExpiresAt",
-        "reference": "scalar",
-        "getter": false,
-        "setter": false,
-        "type": "number"
-      },
       "user": {
         "name": "user",
         "reference": "1:1",
@@ -39,16 +31,16 @@
       "timeCreatedAt": {
         "name": "timeCreatedAt",
         "reference": "scalar",
-        "type": "timestamptz",
         "getter": false,
-        "setter": false
+        "setter": false,
+        "type": "Date"
       },
       "timeUpdatedAt": {
         "name": "timeUpdatedAt",
         "reference": "scalar",
-        "type": "timestamptz",
         "getter": false,
-        "setter": false
+        "setter": false,
+        "type": "Date"
       }
     },
     "props": [
@@ -69,8 +61,6 @@
         "type": "number",
         "columnTypes": ["bigint"]
       },
-      {"name": "accessToken", "reference": "scalar", "getter": false, "setter": false, "type": "string"},
-      {"name": "accessTokenExpiresAt", "reference": "scalar", "getter": false, "setter": false, "type": "number"},
       {
         "name": "user",
         "reference": "1:1",
@@ -80,8 +70,8 @@
         "owner": true,
         "unique": true
       },
-      {"name": "timeCreatedAt", "reference": "scalar", "type": "timestamptz", "getter": false, "setter": false},
-      {"name": "timeUpdatedAt", "reference": "scalar", "type": "timestamptz", "getter": false, "setter": false}
+      {"name": "timeCreatedAt", "reference": "scalar", "getter": false, "setter": false, "type": "Date"},
+      {"name": "timeUpdatedAt", "reference": "scalar", "getter": false, "setter": false, "type": "Date"}
     ],
     "primaryKeys": ["id"],
     "filters": {},
@@ -110,6 +100,6 @@
     "collection": "auth_entity"
   },
   "origin": "./src/auth/auth.entity.ts",
-  "hash": "44310a73e07d87a605cecdea3687afa7",
+  "hash": "94c737ca116ffcc5da1cbda8a3051e07",
   "version": "4.5.7"
 }

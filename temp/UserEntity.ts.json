@@ -18,9 +18,19 @@
         "getter": false,
         "setter": false,
         "type": "string",
-        "columnTypes": ["varchar"]
+        "columnTypes": ["varchar"],
+        "nullable": true
       },
-      "roles": {"name": "roles", "reference": "scalar", "enum": true, "default": ["user"], "type": "[UserRole.User]"}
+      "roles": {
+        "name": "roles",
+        "reference": "scalar",
+        "enum": false,
+        "items": ["user", "admin"],
+        "array": true,
+        "default": ["user"],
+        "type": "Array<UserRole>",
+        "customType": "customType"
+      }
     },
     "props": [
       {"name": "id", "reference": "scalar", "primary": true, "type": "number"},
@@ -39,9 +49,19 @@
         "getter": false,
         "setter": false,
         "type": "string",
-        "columnTypes": ["varchar"]
+        "columnTypes": ["varchar"],
+        "nullable": true
       },
-      {"name": "roles", "reference": "scalar", "enum": true, "default": ["user"], "type": "[UserRole.User]"}
+      {
+        "name": "roles",
+        "reference": "scalar",
+        "enum": false,
+        "items": ["user", "admin"],
+        "array": true,
+        "default": ["user"],
+        "type": "Array<UserRole>",
+        "customType": "customType"
+      }
     ],
     "primaryKeys": ["id"],
     "filters": {},
@@ -60,6 +80,6 @@
     "collection": "user_entity"
   },
   "origin": "./src/user/user.entity.ts",
-  "hash": "fa788589cd37150462154da6dc64ffb2",
+  "hash": "99f643cfcf8cbc2dc8395227970b0cd5",
   "version": "4.5.7"
 }

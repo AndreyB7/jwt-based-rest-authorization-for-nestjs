@@ -19,14 +19,6 @@
         "type": "number",
         "columnTypes": ["bigint"]
       },
-      "accessToken": {"name": "accessToken", "reference": "scalar", "getter": false, "setter": false, "type": "string"},
-      "accessTokenExpiresAt": {
-        "name": "accessTokenExpiresAt",
-        "reference": "scalar",
-        "getter": false,
-        "setter": false,
-        "type": "number"
-      },
       "user": {
         "name": "user",
         "reference": "1:1",
@@ -39,16 +31,16 @@
       "timeCreatedAt": {
         "name": "timeCreatedAt",
         "reference": "scalar",
-        "type": "timestamptz",
         "getter": false,
-        "setter": false
+        "setter": false,
+        "type": "Date"
       },
       "timeUpdatedAt": {
         "name": "timeUpdatedAt",
         "reference": "scalar",
-        "type": "timestamptz",
         "getter": false,
-        "setter": false
+        "setter": false,
+        "type": "Date"
       }
     },
     "props": [
@@ -69,8 +61,6 @@
         "type": "number",
         "columnTypes": ["bigint"]
       },
-      {"name": "accessToken", "reference": "scalar", "getter": false, "setter": false, "type": "string"},
-      {"name": "accessTokenExpiresAt", "reference": "scalar", "getter": false, "setter": false, "type": "number"},
       {
         "name": "user",
         "reference": "1:1",
@@ -80,8 +70,8 @@
         "owner": true,
         "unique": true
       },
-      {"name": "timeCreatedAt", "reference": "scalar", "type": "timestamptz", "getter": false, "setter": false},
-      {"name": "timeUpdatedAt", "reference": "scalar", "type": "timestamptz", "getter": false, "setter": false}
+      {"name": "timeCreatedAt", "reference": "scalar", "getter": false, "setter": false, "type": "Date"},
+      {"name": "timeUpdatedAt", "reference": "scalar", "getter": false, "setter": false, "type": "Date"}
     ],
     "primaryKeys": ["id"],
     "filters": {},
@@ -107,9 +97,9 @@
         "unique": true
       }
     ],
-    "collection": "AuthEntity"
+    "collection": "auth_entity"
   },
   "origin": "./dist/auth/auth.entity.js",
-  "hash": "074346a20b2afd2d8460b8d44bfe72de",
+  "hash": "ab7d81ccc8b4613ee760e921185f34e1",
   "version": "4.5.7"
 }

@@ -8,7 +8,7 @@ const config: Options = {
   entities: ["dist/**/*.entity.js"],
   entitiesTs: ["src/**/*.entity.ts"],
   baseDir: process.cwd(),
-  namingStrategy: UnderscoreNamingStrategy, // EntityCaseNamingStrategy,
+  namingStrategy: UnderscoreNamingStrategy,
   migrations: {
     tableName: "mikro_orm_migrations", // name of database table with log of executed transactions
     path: "./src/migrations", // path to the folder with migrations
@@ -19,7 +19,7 @@ const config: Options = {
     dropTables: true, // allow to disable table dropping
     safe: false, // allow to disable table and column dropping
     emit: "ts", // migration generation mode
-    migrationsList: [],
+    // migrationsList: [],
   },
 
   debug: true,

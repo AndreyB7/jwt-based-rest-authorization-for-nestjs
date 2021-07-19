@@ -4,10 +4,10 @@ import {APP_GUARD, APP_PIPE} from "@nestjs/core";
 
 import {JwtGuard, RolesGuard} from "./common/guards";
 import {CustomValidationPipe} from "./common/pipes";
-import {MikroOrmConfigService} from "./microorm.options";
 
 import {AuthModule} from "./auth/auth.module";
 import {UserModule} from "./user/user.module";
+import {MikroOrmConfigService} from "./microorm.options";
 
 @Module({
   providers: [

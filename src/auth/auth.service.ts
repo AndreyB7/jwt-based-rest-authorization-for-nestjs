@@ -49,12 +49,16 @@ export class AuthService {
     const refreshToken = v4();
     const date = new Date();
 
-    this.authEntityRepository.create({
+    const loginUser = this.authEntityRepository.create({
       user,
       refreshToken,
       refreshTokenExpiresAt: date.getTime() + refreshTokenExpiresIn,
     });
-    await this.authEntityRepository.flush();
+    try {
+      await this.authEntityRepository.nativeInsert(loginUser);
+    } catch {
+      await this.authEntityRepository.nativeUpdate(user.id, loginUser);
+    }
 
     return {
       accessToken: this.jwtService.sign({email: user.email}, {expiresIn: accessTokenExpiresIn / 1000}),

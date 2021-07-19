@@ -16,7 +16,6 @@
     "@nestjs/passport": "7.1.5",
     "@nestjs/platform-express": "7.6.15",
     "@nestjs/swagger": "4.8.0",
-    "@nestjs/typeorm": "7.1.5",
     "class-transformer": "0.4.0",
     "class-validator": "0.13.1",
     "dotenv": "8.2.0",
@@ -26,8 +25,6 @@
     "pg": "8.6.0",
     "rxjs": "6.6.7",
     "swagger-ui-express": "4.1.6",
-    "typeorm": "0.2.32",
-    "typeorm-naming-strategies": "2.0.0",
     "uuid": "8.3.2"
   },
   "devDependencies": {
@@ -80,15 +77,13 @@
     "entity:create": "npm run typeorm -- entity:create -n",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint . --fix --ext .js,.jsx,.ts,.tsx",
-    "migration:create": "npm run typeorm migration:create -- -n",
-    "migration:generate": "npm run typeorm migration:generate -- -n",
-    "migration:revert": "npm run typeorm migration:revert",
-    "migration:run": "npm run typeorm migration:run",
+    "database:create": "npx mikro-orm schema:create -r",
+    "database:update": "npx mikro-orm schema:update -r",
+    "database:drop": "npx mikro-orm schema:drop -r",
     "prebuild": "rm -rf dist/",
     "prod": "NODE_ENV=production node .",
     "start": "NODE_ENV=development tsc-watch --onSuccess \"node .\" --onFailure \"echo Compilation Failed\"",
-    "test": "NODE_ENV=test jest --config jest.config.json --detectOpenHandles",
-    "typeorm": "NODE_ENV=development ts-node ./node_modules/.bin/typeorm --config src/ormconfig.ts"
+    "test": "NODE_ENV=test jest --config jest.config.json --detectOpenHandles"
   },
   "title": "JWT based authorization for Nest.js",
   "version": "0.0.1"

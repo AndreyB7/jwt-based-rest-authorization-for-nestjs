@@ -16,18 +16,16 @@ export class AuthEntity {
   @Property({columnType: "bigint"})
   refreshTokenExpiresAt: number;
 
-  @Property()
   accessToken: string;
 
-  @Property()
   accessTokenExpiresAt: number;
 
   @OneToOne()
   user: UserEntity;
 
-  @Property({type: "timestamptz"})
-  timeCreatedAt = new Date().toISOString();
+  @Property()
+  timeCreatedAt = new Date();
 
-  @Property({type: "timestamptz", onUpdate: () => new Date().toISOString()})
-  timeUpdatedAt = new Date().toISOString();
+  @Property({onUpdate: () => new Date()})
+  timeUpdatedAt = new Date();
 }
