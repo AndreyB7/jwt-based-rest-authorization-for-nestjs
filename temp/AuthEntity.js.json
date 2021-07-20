@@ -19,15 +19,7 @@
         "type": "number",
         "columnTypes": ["bigint"]
       },
-      "user": {
-        "name": "user",
-        "reference": "1:1",
-        "cascade": ["persist"],
-        "type": "UserEntity",
-        "nullable": false,
-        "owner": true,
-        "unique": true
-      },
+      "user": {"name": "user", "reference": "m:1", "cascade": ["persist"], "type": "UserEntity", "nullable": false},
       "timeCreatedAt": {
         "name": "timeCreatedAt",
         "reference": "scalar",
@@ -61,15 +53,7 @@
         "type": "number",
         "columnTypes": ["bigint"]
       },
-      {
-        "name": "user",
-        "reference": "1:1",
-        "cascade": ["persist"],
-        "type": "UserEntity",
-        "nullable": false,
-        "owner": true,
-        "unique": true
-      },
+      {"name": "user", "reference": "m:1", "cascade": ["persist"], "type": "UserEntity", "nullable": false},
       {"name": "timeCreatedAt", "reference": "scalar", "getter": false, "setter": false, "type": "Date"},
       {"name": "timeUpdatedAt", "reference": "scalar", "getter": false, "setter": false, "type": "Date"}
     ],
@@ -87,19 +71,11 @@
     "useCache": true,
     "compositePK": false,
     "relations": [
-      {
-        "name": "user",
-        "reference": "1:1",
-        "cascade": ["persist"],
-        "type": "UserEntity",
-        "nullable": false,
-        "owner": true,
-        "unique": true
-      }
+      {"name": "user", "reference": "m:1", "cascade": ["persist"], "type": "UserEntity", "nullable": false}
     ],
     "collection": "auth_entity"
   },
   "origin": "./dist/auth/auth.entity.js",
-  "hash": "ab7d81ccc8b4613ee760e921185f34e1",
+  "hash": "4779797f8dd18b4acdd39849607a2bd1",
   "version": "4.5.7"
 }

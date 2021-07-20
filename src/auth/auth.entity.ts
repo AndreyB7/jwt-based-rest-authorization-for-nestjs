@@ -1,4 +1,4 @@
-import {Entity, PrimaryKey, Property, OneToOne, EntityRepositoryType} from "@mikro-orm/core";
+import {Entity, PrimaryKey, Property, ManyToOne, EntityRepositoryType} from "@mikro-orm/core";
 
 import {UserEntity} from "../user/user.entity";
 import {IAuth} from "./interfaces";
@@ -20,7 +20,7 @@ export class AuthEntity {
 
   accessTokenExpiresAt: number;
 
-  @OneToOne()
+  @ManyToOne()
   user: UserEntity;
 
   @Property()

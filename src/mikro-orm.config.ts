@@ -1,6 +1,7 @@
 import {Options, UnderscoreNamingStrategy} from "@mikro-orm/core";
 import {SqlHighlighter} from "@mikro-orm/sql-highlighter";
 import {TsMorphMetadataProvider} from "@mikro-orm/reflection";
+import {Migration20210720063728} from "./migrations/Migration20210720063728";
 
 const config: Options = {
   type: "postgresql",
@@ -19,7 +20,12 @@ const config: Options = {
     dropTables: true, // allow to disable table dropping
     safe: false, // allow to disable table and column dropping
     emit: "ts", // migration generation mode
-    // migrationsList: [],
+    migrationsList: [
+      {
+        name: "Migration20210720063728.ts",
+        class: Migration20210720063728,
+      },
+    ],
   },
 
   debug: true,

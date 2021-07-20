@@ -54,11 +54,8 @@ export class AuthService {
       refreshToken,
       refreshTokenExpiresAt: date.getTime() + refreshTokenExpiresIn,
     });
-    try {
-      await this.authEntityRepository.nativeInsert(loginUser);
-    } catch {
-      await this.authEntityRepository.nativeUpdate(user.id, loginUser);
-    }
+
+    await this.authEntityRepository.nativeInsert(loginUser);
 
     return {
       accessToken: this.jwtService.sign({email: user.email}, {expiresIn: accessTokenExpiresIn / 1000}),
