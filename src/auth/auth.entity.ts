@@ -1,51 +1,31 @@
-import {
-  BaseEntity,
-  BeforeInsert,
-  BeforeUpdate,
-  Column,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import {Entity, PrimaryKey, Property, ManyToOne, EntityRepositoryType} from "@mikro-orm/core";
+
 import {UserEntity} from "../user/user.entity";
 import {IAuth} from "./interfaces";
 
-@Entity({schema: "test", name: "auth"})
-export class AuthEntity extends BaseEntity implements IAuth {
-  @PrimaryGeneratedColumn()
-  public id: number;
+@Entity()
+export class AuthEntity {
+  [EntityRepositoryType]?: IAuth;
 
-  @Column({type: "varchar"})
-  public refreshToken: string;
+  @PrimaryKey()
+  id: number;
 
-  @Column({type: "bigint"})
-  public refreshTokenExpiresAt: number;
+  @Property({columnType: "varchar"})
+  refreshToken: string;
 
-  public accessToken: string;
+  @Property({columnType: "bigint"})
+  refreshTokenExpiresAt: number;
 
-  public accessTokenExpiresAt: number;
+  accessToken: string;
 
-  @JoinColumn()
-  @OneToOne(_type => UserEntity)
-  public user: UserEntity;
+  accessTokenExpiresAt: number;
 
-  @Column({type: "timestamptz"})
-  public timeCreatedAt: string;
+  @ManyToOne()
+  user: UserEntity;
 
-  @Column({type: "timestamptz"})
-  public timeUpdatedAt: string;
+  @Property()
+  timeCreatedAt = new Date();
 
-  @BeforeInsert()
-  public beforeInsert(): void {
-    const date = new Date();
-    this.timeCreatedAt = date.toISOString();
-    this.timeUpdatedAt = date.toISOString();
-  }
-
-  @BeforeUpdate()
-  public beforeUpdate(): void {
-    const date = new Date();
-    this.timeUpdatedAt = date.toISOString();
-  }
+  @Property({onUpdate: () => new Date()})
+  timeUpdatedAt = new Date();
 }

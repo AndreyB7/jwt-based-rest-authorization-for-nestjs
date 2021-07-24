@@ -1,13 +1,10 @@
 import {Module} from "@nestjs/common";
-import {TypeOrmModule} from "@nestjs/typeorm";
 import {APP_GUARD, APP_PIPE} from "@nestjs/core";
-
 import {JwtGuard, RolesGuard} from "./common/guards";
 import {CustomValidationPipe} from "./common/pipes";
-import {TypeOrmConfigService} from "./typeorm.options";
-
 import {AuthModule} from "./auth/auth.module";
 import {UserModule} from "./user/user.module";
+import {DatabaseModule} from "./database/database.module";
 
 @Module({
   providers: [
@@ -24,12 +21,6 @@ import {UserModule} from "./user/user.module";
       useClass: RolesGuard,
     },
   ],
-  imports: [
-    TypeOrmModule.forRootAsync({
-      useClass: TypeOrmConfigService,
-    }),
-    AuthModule,
-    UserModule,
-  ],
+  imports: [DatabaseModule, AuthModule, UserModule],
 })
 export class ApplicationModule {}

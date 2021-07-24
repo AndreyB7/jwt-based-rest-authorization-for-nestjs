@@ -1,21 +1,18 @@
-import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 import {IUser, UserRole} from "./interfaces";
+import {Enum, Entity, EntityRepositoryType, PrimaryKey, Property} from "@mikro-orm/core";
+@Entity()
+export class UserEntity {
+  [EntityRepositoryType]?: IUser;
 
-@Entity({schema: "test", name: "user"})
-export class UserEntity extends BaseEntity implements IUser {
-  @PrimaryGeneratedColumn()
-  public id: number;
+  @PrimaryKey()
+  id: number;
 
-  @Column({type: "varchar"})
-  public email: string;
+  @Property({columnType: "varchar"})
+  email: string;
 
-  @Column({type: "varchar", select: false})
-  public password?: string;
+  @Property({columnType: "varchar", hidden: true})
+  password?: string;
 
-  @Column({
-    type: "enum",
-    enum: UserRole,
-    array: true,
-  })
-  public roles: UserRole[];
+  @Enum({items: () => UserRole, array: true, default: [UserRole.User]})
+  roles: UserRole[] = [UserRole.User];
 }
